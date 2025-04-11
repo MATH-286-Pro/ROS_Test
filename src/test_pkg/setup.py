@@ -22,6 +22,7 @@ setup(
         'console_scripts': [
             'USB2CAN_receive_node = test_pkg.USB2CAN_receive_node:main',
             'USB2CAN_send_node    = test_pkg.USB2CAN_send_node:main',
+            'GM6020_node          = test_pkg.GM6020_node:main', 
         ],
     },
 )

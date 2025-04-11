@@ -1,3 +1,6 @@
+import os
+os.environ['RCUTILS_CONSOLE_OUTPUT_FORMAT'] = "[{severity}] [{name}]: {message}"
+
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
@@ -37,7 +40,7 @@ class CanSerialNode(Node):
         self.read_thread.start()
 
         # ROS 定时器定时取队列中数据进行处理
-        self.timer = self.create_timer(self.reading_time_gap, self.process_frames)  # 提高处理频率
+        self.timer = self.create_timer(self.reading_time_gap, self.process_frames(print_interval=50))  # 提高处理频率
 
     def serial_read_thread(self):
         """独立线程，持续读取串口数据，并将完整帧存入队列"""
@@ -68,7 +71,7 @@ class CanSerialNode(Node):
                     self.get_logger().warn("Frame queue is full. Dropping frame.")
                 buffer = buffer[head_index + FRAME_MIN_LEN:]
     
-    def process_frames(self):
+    def process_frames(self, print_interval = 50):
         """在 ROS 定时器回调中处理队列中的数据帧"""
         while not self.frame_queue.empty():
             data = self.frame_queue.get()
@@ -80,9 +83,9 @@ class CanSerialNode(Node):
                 # 构造日志字符串
                 msg_str = f"CAN ID: {can_id:X}, DATA: {' '.join(f'{b:02X}' for b in payload)}"
 
-                # 每 50 帧打印一次，减轻 I/O 压力
+                # 每 print_interval 帧打印一次，减轻 I/O 压力
                 self.frame_count += 1
-                if self.frame_count % 50 == 0:
+                if self.frame_count % print_interval == 0:
                     self.get_logger().info(msg_str)
 
                 # 发布到 can_data 话题
