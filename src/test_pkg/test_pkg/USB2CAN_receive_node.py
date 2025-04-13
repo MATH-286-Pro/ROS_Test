@@ -18,7 +18,7 @@ class CanSerialNode(Node):
     def __init__(self, reading_frequency = 1000):
         super().__init__('USB2CAN_receive')
         self.publisher_         = self.create_publisher(String, 'CAN_GM6020_feedback', 10)
-        self.forward_publisher_ = self.create_publisher(String, 'forward_can', 10)
+        # self.forward_publisher_ = self.create_publisher(String, 'forward_can', 10)
         
         # 创建一个队列用于存储完整的 CAN 帧
         self.frame_queue = queue.Queue(maxsize=1000)
@@ -89,18 +89,18 @@ class CanSerialNode(Node):
                 # 每 print_interval 帧打印一次，减轻 I/O 压力
                 self.frame_count += 1
                 if self.frame_count % print_interval == 0:
-                    self.get_logger().info(msg_str)
+                    self.get_logger().debug(msg_str)
 
                 # 发布到 can_data 话题
                 ros_msg = String()
                 ros_msg.data = msg_str
                 self.publisher_.publish(ros_msg)
 
-                # 发布到 forward_can 话题
-                forward_str = f"0x{can_id:X} {dlc}" + ''.join(f" 0x{b:02X}" for b in payload)
-                forward_msg = String()
-                forward_msg.data = forward_str
-                self.forward_publisher_.publish(forward_msg)
+                # # 发布到 forward_can 话题
+                # forward_str = f"0x{can_id:X} {dlc}" + ''.join(f" 0x{b:02X}" for b in payload)
+                # forward_msg = String()
+                # forward_msg.data = forward_str
+                # self.forward_publisher_.publish(forward_msg)
 
 
 # 主函数

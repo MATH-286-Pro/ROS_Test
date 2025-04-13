@@ -1,7 +1,14 @@
 import launch
+from launch.actions import SetEnvironmentVariable
 from launch_ros.actions import Node
 
+
 def generate_launch_description():
+
+    # 设置全局日志阈值为 WARN，过滤掉 info 级别及以下的日志
+    log_env = SetEnvironmentVariable(
+        'RCUTILS_LOGGING_SEVERITY_THRESHOLD', 'WARN'
+    )
 
     USB2CAN_send_node = Node(
         package = 'test_pkg',           # 包名称
@@ -17,7 +24,7 @@ def generate_launch_description():
 
     GM6020_control_node = Node(
         package = 'test_pkg', 
-        executable='GM6020_control_node',
+        executable='DJI_motor_control_node',
         # output = 'screen'
     )
 

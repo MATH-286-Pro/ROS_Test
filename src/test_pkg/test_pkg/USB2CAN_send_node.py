@@ -19,14 +19,17 @@ class CanSerialWriteNode(Node):
             self.ser = None
             return
 
-        # 订阅“forward_can”话题，获取要发送的 CAN 帧
+        # 订阅 CAN_DJI_Motor_Control 话题，获取要发送的 CAN 帧
         self.subscription = self.create_subscription(
             String,
-            'CAN_GM6020_control',
+            'CAN_DJI_Motor_Control',
             self.send_can_callback,
             10
         )
-        self.get_logger().info("CanSerialWriteNode subscribed to 'CAN_GM6020_control' topic.")
+
+
+        # 打印初始化结束信息
+        self.get_logger().info("Start USB2CAN send node.")
 
     def send_can_callback(self, can_msg: String):
         """
@@ -120,7 +123,7 @@ class CanSerialWriteNode(Node):
             # 发送帧数据
             self.ser.write(frame)
 
-            self.get_logger().info(
+            self.get_logger().debug(
                 f"Sent CAN frame (cmd=0x01) -> ID=0x{can_id:X}, DLC={dlc}, Payload={[hex(b) for b in payload_data]}"
             )
 

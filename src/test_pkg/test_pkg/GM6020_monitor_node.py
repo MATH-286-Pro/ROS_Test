@@ -30,7 +30,7 @@ class GM6020SignalAnalysisNode(Node):
         self.publish_interval  = 1/publish_fps  # 每 xxx 秒发布一次，10Hz
 
         # 打印初始化结束信息
-        self.get_logger().info("GM6020 Signal Analysis Node has been started.")
+        self.get_logger().info("Start GM6020 monitor node.")
 
     def can_data_callback(self, msg):
         """
@@ -77,7 +77,7 @@ class GM6020SignalAnalysisNode(Node):
         angle_deg = angle * 360.0 / 8192.0
 
         # 打印解析结果
-        self.get_logger().info(
+        self.get_logger().debug(
             f"GM6020 ID 0x{can_id:X} -> "
             f"Angle: {angle_deg:.2f}, Speed: {speed}, Torque: {torque}, "
             f"Temp: {temperature}"

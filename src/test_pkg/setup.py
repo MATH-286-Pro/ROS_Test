@@ -27,7 +27,7 @@ setup(
             'USB2CAN_receive_node = test_pkg.USB2CAN_receive_node:main',
             'USB2CAN_send_node    = test_pkg.USB2CAN_send_node:main',
             'GM6020_monitor_node  = test_pkg.GM6020_monitor_node:main',
-            'GM6020_control_node  = test_pkg.GM6020_control_node:main',
+            'DJI_motor_control_node  = test_pkg.DJI_motor_control_node:main',
             'Keyboard_node        = test_pkg.Keyboard_node:main', 
         ],
     },
