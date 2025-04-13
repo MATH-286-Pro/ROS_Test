@@ -1,5 +1,5 @@
 import os
-os.environ['RCUTILS_CONSOLE_OUTPUT_FORMAT'] = "[{severity}] [{name}]: {message}"
+os.environ['RCUTILS_CONSOLE_OUTPUT_FORMAT'] = "{message}"
 
 import rclpy
 from rclpy.node import Node
@@ -13,10 +13,11 @@ FRAME_HEAD = bytes([0xAA, 0x11])
 FRAME_MIN_LEN = 16
 HZ = 1
 
+# 定义类
 class CanSerialNode(Node):
     def __init__(self, reading_frequency = 1000):
         super().__init__('can_serial_node')
-        self.publisher_ = self.create_publisher(String, 'can_data', 10)
+        self.publisher_         = self.create_publisher(String, 'can_data', 10)
         self.forward_publisher_ = self.create_publisher(String, 'forward_can', 10)
         
         # 创建一个队列用于存储完整的 CAN 帧
@@ -101,6 +102,8 @@ class CanSerialNode(Node):
                 forward_msg.data = forward_str
                 self.forward_publisher_.publish(forward_msg)
 
+
+# 主函数
 def main(args=None):
     rclpy.init(args=args)
     node = CanSerialNode(reading_frequency=1000*HZ)
