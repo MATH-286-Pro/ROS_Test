@@ -8,7 +8,7 @@ import serial
 
 class CanSerialWriteNode(Node):
     def __init__(self):
-        super().__init__('can_serial_write_node')
+        super().__init__('USB2CAN_send')
 
         # 打开串口。假设这是另一个 USB2CAN 设备 /dev/ttyACM0
         try:

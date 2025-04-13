@@ -16,9 +16,9 @@ HZ = 1
 # 定义类
 class CanSerialNode(Node):
     def __init__(self, reading_frequency = 1000):
-        super().__init__('can_serial_node')
+        super().__init__('USB2CAN_receive')
         self.publisher_         = self.create_publisher(String, 'can_data', 10)
-        # self.forward_publisher_ = self.create_publisher(String, 'forward_can', 10)
+        self.forward_publisher_ = self.create_publisher(String, 'forward_can', 10)
         
         # 创建一个队列用于存储完整的 CAN 帧
         self.frame_queue = queue.Queue(maxsize=1000)
