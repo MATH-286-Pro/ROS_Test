@@ -1,4 +1,6 @@
 from setuptools import find_packages, setup
+import os
+from glob import glob
 
 package_name = 'test_pkg'
 
@@ -10,6 +12,8 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        (os.path.join('share',package_name, 'launch'),glob('launch/*.launch.py')),
+        # (os.path.join('share',package_name, 'launch'),['src/launch/demo.launch.py']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -22,7 +26,7 @@ setup(
         'console_scripts': [
             'USB2CAN_receive_node = test_pkg.USB2CAN_receive_node:main',
             'USB2CAN_send_node    = test_pkg.USB2CAN_send_node:main',
-            'GM6020_node          = test_pkg.GM6020_node:main',
+            'GM6020_monitor_node  = test_pkg.GM6020_monitor_node:main',
             'GM6020_control_node  = test_pkg.GM6020_control_node:main',
             'Keyboard_node        = test_pkg.Keyboard_node:main', 
         ],

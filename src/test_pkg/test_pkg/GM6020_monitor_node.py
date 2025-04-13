@@ -11,12 +11,12 @@ class GM6020SignalAnalysisNode(Node):
     def __init__(self):
 
         # 节点初始化 + 节点名称
-        super().__init__('GM6020') 
+        super().__init__('GM6020_monitor') 
         
         # 订阅 "can_data" 话题，接收形如 "CAN ID: 205, DATA: 12 34 56 78 9A BC DE F0" 的字符串
         self.subscription = self.create_subscription(
             String,
-            'can_data',
+            'CAN_GM6020_feedback',
             self.can_data_callback,
             10
         )

@@ -8,7 +8,7 @@ import serial
 
 class CanSerialWriteNode(Node):
     def __init__(self):
-        super().__init__('can_serial_write_node')
+        super().__init__('USB2CAN_send')
 
         # 打开串口。假设这是另一个 USB2CAN 设备 /dev/ttyACM0
         try:
@@ -22,11 +22,11 @@ class CanSerialWriteNode(Node):
         # 订阅“forward_can”话题，获取要发送的 CAN 帧
         self.subscription = self.create_subscription(
             String,
-            'CAN_GM6020',
+            'CAN_GM6020_control',
             self.send_can_callback,
             10
         )
-        self.get_logger().info("CanSerialWriteNode subscribed to 'CAN_GM6020' topic.")
+        self.get_logger().info("CanSerialWriteNode subscribed to 'CAN_GM6020_control' topic.")
 
     def send_can_callback(self, can_msg: String):
         """

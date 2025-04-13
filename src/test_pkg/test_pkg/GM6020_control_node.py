@@ -9,7 +9,7 @@ from std_msgs.msg import String
 class MotorControlNode(Node):
     def __init__(self):
         super().__init__("GM6020_Control")
-        self.pub   = self.create_publisher(String, 'CAN_GM6020', 10)    # send topic
+        self.pub   = self.create_publisher(String, 'CAN_GM6020_control', 10)    # send topic
         self.timer = self.create_timer(0.1, self.timer_callback)         # 0.1秒发布一次
 
     def timer_callback(self):
