@@ -40,7 +40,9 @@ class CanSerialNode(Node):
         self.read_thread.start()
 
         # ROS 定时器定时取队列中数据进行处理
-        self.timer = self.create_timer(self.reading_time_gap, self.process_frames(print_interval=50))  # 提高处理频率
+        # self.timer = self.create_timer(self.reading_time_gap, self.process_frames(print_interval=50))  # 提高处理频率
+        self.timer = self.create_timer(self.reading_time_gap, lambda: self.process_frames(print_interval=50))
+
 
     def serial_read_thread(self):
         """独立线程，持续读取串口数据，并将完整帧存入队列"""

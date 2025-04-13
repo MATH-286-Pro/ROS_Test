@@ -4,7 +4,7 @@ os.environ['RCUTILS_CONSOLE_OUTPUT_FORMAT'] = "[{severity}] [{name}]: {message}"
 
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String
+from std_msgs.msg import String, Float32
 import re
 
 class GM6020SignalAnalysisNode(Node):
@@ -18,6 +18,9 @@ class GM6020SignalAnalysisNode(Node):
             self.can_data_callback,
             10
         )
+
+        # 新建一个发布器用于发送电机角度信息
+        self.angle_publisher = self.create_publisher(Float32, 'motor_angle', 10)
 
         self.get_logger().info("GM6020 Signal Analysis Node has been started.")
 
@@ -79,9 +82,15 @@ class GM6020SignalAnalysisNode(Node):
         # 打印解析结果
         self.get_logger().info(
             f"GM6020 ID 0x{can_id:X} -> "
-            f"Angle: {angle_deg}, Speed: {speed}, Torque: {torque}, "
+            f"Angle: {angle_deg:.2f}, Speed: {speed}, Torque: {torque}, "
             f"Temp: {temperature}"
         )
+
+        # 发布电机角度消息
+        from std_msgs.msg import Float32
+        angle_msg = Float32()
+        angle_msg.data = angle_deg
+        self.angle_publisher.publish(angle_msg)
 
 def main(args=None):
     rclpy.init(args=args)
