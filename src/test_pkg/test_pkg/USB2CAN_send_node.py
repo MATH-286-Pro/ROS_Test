@@ -22,11 +22,11 @@ class CanSerialWriteNode(Node):
         # 订阅“forward_can”话题，获取要发送的 CAN 帧
         self.subscription = self.create_subscription(
             String,
-            'CAN_GM6020',
+            'CAN_Control_Data',
             self.send_can_callback,
             10
         )
-        self.get_logger().info("CanSerialWriteNode subscribed to 'CAN_GM6020' topic.")
+        self.get_logger().info("CanSerialWriteNode subscribed to 'CAN_Control_Data' topic.")
 
     def send_can_callback(self, can_msg: String):
         """
@@ -120,9 +120,10 @@ class CanSerialWriteNode(Node):
             # 发送帧数据
             self.ser.write(frame)
 
-            self.get_logger().info(
-                f"Sent CAN frame (cmd=0x01) -> ID=0x{can_id:X}, DLC={dlc}, Payload={[hex(b) for b in payload_data]}"
-            )
+            # # 打印数据
+            # self.get_logger().info(
+            #     f"Sent CAN frame (cmd=0x01) -> ID=0x{can_id:X}, DLC={dlc}, Payload={[hex(b) for b in payload_data]}"
+            # )
 
         except ValueError as e:
             self.get_logger().warn(f"Invalid input for CAN send: {can_msg.data}, error={e}")

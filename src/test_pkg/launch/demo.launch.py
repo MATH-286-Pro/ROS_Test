@@ -15,15 +15,15 @@ def generate_launch_description():
         # output = 'screen'
     )
 
-    GM6020_control_node = Node(
+    CAN2_control_node = Node(
         package = 'test_pkg', 
-        executable='GM6020_control_node',
+        executable='CAN_control_node',
         # output = 'screen'
     )
 
-    GM6020_monitor_node = Node(
+    CAN2_monitor_node = Node(
         package = 'test_pkg', 
-        executable='GM6020_monitor_node',
+        executable='CAN_monitor_node',
         # output = 'screen'
     )
 
@@ -31,6 +31,6 @@ def generate_launch_description():
         # Actions
         USB2CAN_send_node,
         USB2CAN_receive_node,
-        GM6020_control_node,
-        GM6020_monitor_node,
+        CAN2_control_node,
+        CAN2_monitor_node,
     ])

@@ -77,11 +77,11 @@ class GM6020SignalAnalysisNode(Node):
         angle_deg = angle * 360.0 / 8192.0
 
         # 打印解析结果
-        self.get_logger().info(
-            f"GM6020 ID 0x{can_id:X} -> "
-            f"Angle: {angle_deg:.2f}, Speed: {speed}, Torque: {torque}, "
-            f"Temp: {temperature}"
-        )
+        # self.get_logger().info(
+        #     f"GM6020 ID 0x{can_id:X} -> "
+        #     f"Angle: {angle_deg:.2f}, Speed: {speed}, Torque: {torque}, "
+        #     f"Temp: {temperature}"
+        # )
 
         # 限制发布频率：若超过设定的时间间隔，则发布角度消息
         current_time = time.time()

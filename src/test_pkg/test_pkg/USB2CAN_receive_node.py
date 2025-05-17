@@ -83,13 +83,13 @@ class CanSerialNode(Node):
                 can_id = int.from_bytes(data[3:7], byteorder='little')
                 payload = data[7:7+dlc]
 
-                # 构造日志字符串
+                # # 构造日志字符串
                 msg_str = f"CAN ID: {can_id:X}, DATA: {' '.join(f'{b:02X}' for b in payload)}"
 
-                # 每 print_interval 帧打印一次，减轻 I/O 压力
-                self.frame_count += 1
-                if self.frame_count % print_interval == 0:
-                    self.get_logger().info(msg_str)
+                # # 每 print_interval 帧打印一次，减轻 I/O 压力
+                # self.frame_count += 1
+                # if self.frame_count % print_interval == 0:
+                #     self.get_logger().info(msg_str)
 
                 # 发布到 can_data 话题
                 ros_msg = String()
