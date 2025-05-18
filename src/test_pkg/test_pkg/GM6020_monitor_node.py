@@ -47,6 +47,11 @@ class GM6020SignalAnalysisNode(Node):
         can_id_str  = match.group(1)            # 例如 "205"
         payload_str = match.group(2).strip()    # 例如 "12 34 56 78 9A BC DE F0"
 
+        # ID 过滤
+        target_can_id = 0x206  
+        if int(can_id_str, 16) != target_can_id:
+            return
+
         # 将 CAN ID 字符串转为整型，减去偏移值 0x204
         can_id = int(can_id_str, 16) - 0x204
 

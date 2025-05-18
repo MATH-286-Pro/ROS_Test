@@ -1,0 +1,14 @@
+{
+  "python.autoComplete.extraPaths": [
+    "/home/math286ros/Documents/test_ws/build/test_pkg",
+    "/home/math286ros/Documents/test_ws/install/test_pkg/lib/python3.10/site-packages",
+    "/opt/ros/humble/lib/python3.10/site-packages",
+    "/opt/ros/humble/local/lib/python3.10/dist-packages"
+  ],
+  "python.analysis.extraPaths": [
+    "/home/math286ros/Documents/test_ws/build/test_pkg",
+    "/home/math286ros/Documents/test_ws/install/test_pkg/lib/python3.10/site-packages",
+    "/opt/ros/humble/lib/python3.10/site-packages",
+    "/opt/ros/humble/local/lib/python3.10/dist-packages"
+  ]
+}
